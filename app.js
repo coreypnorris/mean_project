@@ -11,11 +11,21 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+var uristring =
+process.env.MONGOLAB_URI ||
+process.env.MONGOHQ_URL ||
+'mongodb://localhost/news';
+
 var mongoose = require('mongoose');
 require('./models/Posts');
 require('./models/Comments');
-mongoose.connect('mongodb://localhost/news');
-
+mongoose.connect(uristring, function (err, res) {
+  if (err) {
+  console.log ('ERROR connecting to: ' + uristring + '. ' + err);
+  } else {
+  console.log ('Succeeded connected to: ' + uristring);
+  }
+});
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
