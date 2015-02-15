@@ -1,3 +1,9 @@
+var express     = require('express'),
+    app         = express(),
+    server      = require('http').createServer(app),
+    port        = (process.env.NODE_ENV == 'production') ? process.env.PORT : 5000;
+
+server.listen(port);
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -12,8 +18,6 @@ mongoose.connect('mongodb://localhost/news');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
-
-var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
